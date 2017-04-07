@@ -6,3 +6,7 @@
 export const environment = {
   production: false
 };
+
+export const BASE_URL = {
+  switchUrl : 'http://localhost:9002/api/switches'
+}

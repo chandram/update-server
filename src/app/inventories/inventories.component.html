@@ -1,0 +1,60 @@
+<h2>Switches</h2>
+<div class="navLinks">
+  <!--<a [routerLink]="['./main']">Main</a> |-->
+  <!--Enter id: <input #id size="6">-->
+  <!--<button (click)="goToInventory(id.value)">Feeling Lucky</button>-->
+  <app-search-box placeholder="FilterBy: SwitchName/IP" (update)="term=$event"></app-search-box>
+</div>
+
+<div class="inventory-area">
+  <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="results" style="padding-top:10px">
+  <div *ngIf="!results.length">
+    No results found.
+  </div>
+
+  <div *ngIf="results.length">
+    <table class="table table-striped table-hover">
+      <tbody>
+      <tr>
+        <th>Hostname/ID</th>
+        <th>Serial No.</th>
+        <th>SW/HW PID</th>
+        <th>IP</th>
+        <th>Notes</th>
+        <th>Last Connect</th>
+        <th></th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let s of results | filterBy:'hostname,natip':term ">
+        <td>
+          <span class="label label-default">{{ s.hostname}}</span>
+          <br/>
+          <a [routerLink]="['/update-server/inventory', {outlets: {'popup': [s.hostid]}}]">{{s.hostid}}</a>
+        </td>
+        <td>{{ s.serial }}</td>
+        <td>{{ s.swPid }}<br/>{{s.hwPid}}</td>
+        <td>{{ s.natip }}</td>
+        <td>{{ s.notes }}</td>
+        <td>{{ s.lastConnect }}</td>
+        <td>
+          <label>
+            <!--<input type="checkbox" name="isActive"> &lt;!&ndash;   [(ngModel)]="s.forceUpgrade" &ndash;&gt;-->
+            <!--<md-radio-button name="symbol">Force Upgrade</md-radio-button>-->
+          </label>
+        </td>
+        <td>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+          <button type="button" class="btn btn-primary btn-xs">Delete Cert</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+
